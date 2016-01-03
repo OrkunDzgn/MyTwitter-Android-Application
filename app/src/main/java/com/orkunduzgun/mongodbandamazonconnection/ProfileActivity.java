@@ -42,12 +42,13 @@ public class ProfileActivity extends ActionBarActivity {
         SharedPreferences setting = getSharedPreferences("loginSuccess", MODE_PRIVATE);
         username = setting.getString("username", null); //username'i sharedden aldık
 
-        iv = (ImageView) findViewById(R.id.imageView);
-        new GetTweets().execute(username);
-
         listemiz = (ListView) findViewById(R.id.listView);
         adapter = new CustomAdapter(ProfileActivity.this, tweetler);
-        listemiz.setAdapter(adapter);
+        //iv = (ImageView) findViewById(R.id.imageView);
+
+        new GetTweets().execute(username);
+;
+
 
     }
 
@@ -76,30 +77,55 @@ public class ProfileActivity extends ActionBarActivity {
     public class GetTweets extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(String... myURL) {
-            String packet = "{\"Function\" : \"Login\"," +
+        protected String doInBackground(String... myStr) {
+            String userShared = myStr[0];
+
+            String packet = "{\"Function\" : \"GetTweets\"," +
                     "\"UserCreds\" : {\"username\":\"\",\"password\": \"\"}," +
-                    "\"User\" : {\"_id\" : null, \"username\":\""+ username +"\",\"description\": null, \"profilePicture\" : null}," +
+                    "\"User\" : {\"_id\" : null, \"username\":\"\",\"description\": null, \"profilePicture\" : null}," +
                     "\"Tweets\" : null," +
                     "\"Error\" : null," +
                     "\"Following\" : null," +
                     "\"Followers\" : null," +
-                    "\"Tweet\" : null}";
+                    "\"Tweet\" : {\"username\" : \"" + userShared + "\"}}";
             byte[] bayt = packet.getBytes();
             try {
-                URL adres = new URL(myURL[0]);
+                URL adres = new URL("http://52.34.254.140/api/Packet/");
                 Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
                 HttpURLConnection baglanti = (HttpURLConnection) adres.openConnection();
                 YardimciMetodlar.httpPost(baglanti, bayt);
                 String tumIcerik = YardimciMetodlar.responseTumString(baglanti);
 
-                JSONObject nesne = new JSONObject(tumIcerik);
-                JSONObject nesneTweets = new JSONObject(tumIcerik);
-                String tweetsArr = nesne.getString("tweets");
-                String username = nesne.getString("username");
-                String profilePicture = nesne.getString("profilePicture");
+                JSONObject nesneTum = new JSONObject(tumIcerik);
+                JSONObject userObj = nesneTum.getJSONObject("Tweets");
+                JSONArray liste = userObj.getJSONArray("tweets");
 
+                ArrayList<String> users = new ArrayList<>();
+                ArrayList<String> tweets = new ArrayList<>();
+                ArrayList<String> imgLinks = new ArrayList<>();
+                ArrayList<String> times = new ArrayList<>();
+
+                for(int i = 0; i < liste.length(); i++){
+                    JSONObject nesne = liste.getJSONObject(i);
+                    users.add( nesne.getString("username") );
+                    tweets.add(nesne.getString("tweet"));
+                    //imgLinks.add(nesne.getString("image"));
+                    times.add(nesne.getString("time"));
+                }
+                int i = liste.length();
+                i--;
+                while(i != -1){
+                    String[] separated = times.get(i).split(":");
+                    tweetler.add(new TweetDatas(users.get(i), tweets.get(i), times.get(i)));
+                    i--;
+                }
+
+
+                //String tweetsArr = nesne.getString("tweets");
+                //String username = nesne.getString("User");
+                //String profilePicture = nesne.getString("profilePicture");
+/*
                 JSONArray tweetsJArr = new JSONArray(tweetsArr);
                 ArrayList<String> times = new ArrayList<>();
                 ArrayList<String> tweets = new ArrayList<>();
@@ -112,23 +138,29 @@ public class ProfileActivity extends ActionBarActivity {
                 int i = tweetsJArr.length();
                 i--;
                 while(i != -1){
-                    tweetler.add(new TweetDatas(username, tweets.get(i), times.get(i)));
+                    String[] separated = times.get(i).split(":");
+                    tweetler.add(new TweetDatas(username, tweets.get(i), profilePicture, separated[0] + ":" +  separated[1]));
                     i--;
                 }
-                return tumIcerik;
+                */
+                //return tumIcerik;
+
             } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }  catch (JSONException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+
             return null;
         }
 
         @Override
         protected void onPostExecute(String tumIcerik) {
-            //adapter.notifyDataSetChanged();
+            listemiz.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
             super.onPostExecute(tumIcerik);
         }
     }
