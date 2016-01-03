@@ -190,6 +190,7 @@ public class LoginActivity extends ActionBarActivity {
                 mPrefsEditor.putString("username", username);
                 mPrefsEditor.commit();
 
+
                 Intent intent = new Intent(LoginActivity.this, FeedActivity.class);
                 startActivity(intent);
             }

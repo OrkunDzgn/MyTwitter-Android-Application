@@ -20,6 +20,8 @@ public class ProfileActivity extends ActionBarActivity {
 
         SharedPreferences setting = getSharedPreferences("loginSuccess", MODE_PRIVATE);
         username = setting.getString("username", null); //username'i sharedden aldık
+
+
     }
 
     @Override
