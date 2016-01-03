@@ -116,12 +116,10 @@ public class FeedActivity extends ActionBarActivity {
                 int i = tweetsJArr.length();
                 i--;
                 while(i != -1){
-                    String[] separated = times.get(i).split(":");
-                    tweetler.add(new TweetDatas(username, tweets.get(i), profilePicture, separated[0] + ":" +  separated[1]));
+                    tweetler.add(new TweetDatas(username, tweets.get(i), times.get(i)));
                     i--;
                 }
                 return tumIcerik;
-
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }  catch (JSONException e) {
@@ -129,8 +127,6 @@ public class FeedActivity extends ActionBarActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
             return null;
         }
 

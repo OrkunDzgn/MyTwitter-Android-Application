@@ -7,11 +7,11 @@ public class TweetDatas {
     private String img;
     private String time;
 
-    public TweetDatas(String name, String tweet, String img, String time) {
+    public TweetDatas(String name, String tweet, String time) {
         super();
         this.name = name;
         this.tweet = tweet;
-        this.img = img;
+        //this.img = img;
         this.time = time;
     }
 
