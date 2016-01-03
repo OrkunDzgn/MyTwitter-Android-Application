@@ -42,12 +42,13 @@ public class ProfileActivity extends ActionBarActivity {
         SharedPreferences setting = getSharedPreferences("loginSuccess", MODE_PRIVATE);
         username = setting.getString("username", null); //username'i sharedden aldık
 
-        listemiz = (ListView) findViewById(R.id.listView);
-        adapter = new CustomAdapter(ProfileActivity.this, tweetler);
-        //iv = (ImageView) findViewById(R.id.imageView);
+
+        iv = (ImageView) findViewById(R.id.imageView);
 
         new GetTweets().execute(username);
-;
+
+        listemiz = (ListView) findViewById(R.id.listView2);
+        adapter = new CustomAdapter(ProfileActivity.this, tweetler);
 
 
     }
@@ -111,39 +112,15 @@ public class ProfileActivity extends ActionBarActivity {
                     users.add( nesne.getString("username") );
                     tweets.add(nesne.getString("tweet"));
                     //imgLinks.add(nesne.getString("image"));
-                    times.add(nesne.getString("time"));
+                    times.add(nesne.getString("dateTimePosted"));
                 }
                 int i = liste.length();
                 i--;
                 while(i != -1){
-                    String[] separated = times.get(i).split(":");
                     tweetler.add(new TweetDatas(users.get(i), tweets.get(i), times.get(i)));
                     i--;
                 }
-
-
-                //String tweetsArr = nesne.getString("tweets");
-                //String username = nesne.getString("User");
-                //String profilePicture = nesne.getString("profilePicture");
-/*
-                JSONArray tweetsJArr = new JSONArray(tweetsArr);
-                ArrayList<String> times = new ArrayList<>();
-                ArrayList<String> tweets = new ArrayList<>();
-
-                for(int i = 0; i < tweetsJArr.length(); i++){
-                    JSONObject tweetJObj = tweetsJArr.getJSONObject(i);
-                    tweets.add(tweetJObj.getString("tweet"));
-                    times.add(tweetJObj.getString("timePosted"));
-                }
-                int i = tweetsJArr.length();
-                i--;
-                while(i != -1){
-                    String[] separated = times.get(i).split(":");
-                    tweetler.add(new TweetDatas(username, tweets.get(i), profilePicture, separated[0] + ":" +  separated[1]));
-                    i--;
-                }
-                */
-                //return tumIcerik;
+                return "basd";
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
