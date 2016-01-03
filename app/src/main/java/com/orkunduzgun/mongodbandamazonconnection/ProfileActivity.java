@@ -111,13 +111,13 @@ public class ProfileActivity extends ActionBarActivity {
                     JSONObject nesne = liste.getJSONObject(i);
                     users.add( nesne.getString("username") );
                     tweets.add(nesne.getString("tweet"));
-                    //imgLinks.add(nesne.getString("image"));
+                    imgLinks.add(nesne.getString("profilePicture"));
                     times.add(nesne.getString("dateTimePosted"));
                 }
                 int i = liste.length();
                 i--;
                 while(i != -1){
-                    tweetler.add(new TweetDatas(users.get(i), tweets.get(i), times.get(i)));
+                    tweetler.add(new TweetDatas(users.get(i), tweets.get(i), imgLinks.get(i), times.get(i)));
                     i--;
                 }
                 return "basd";

@@ -49,7 +49,7 @@ public class CustomAdapter extends BaseAdapter {
         satirView = mInflater.inflate(R.layout.tweets_layout, null);
         TextView nameText = (TextView) satirView.findViewById(R.id.username);
         TextView tweetText = (TextView) satirView.findViewById(R.id.tweet);
-        //ImageView img = (ImageView) satirView.findViewById(R.id.imageView);
+        ImageView img = (ImageView) satirView.findViewById(R.id.imageView);
         TextView timeText = (TextView) satirView.findViewById(R.id.time);
 
 
@@ -57,7 +57,7 @@ public class CustomAdapter extends BaseAdapter {
 
         TweetDatas tvit = mKisiListesi.get(position);
 
-        //Picasso.with(satirView.getContext()).load(tvit.getImg()).into(img);
+        Picasso.with(satirView.getContext()).load(tvit.getImg()).into(img);
         nameText.setText(tvit.getName());
         tweetText.setText(tvit.getTweet());
         timeText.setText(tvit.getTime());

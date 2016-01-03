@@ -106,6 +106,7 @@ public class FeedActivity extends ActionBarActivity {
 
                 JSONArray tweetsJArr = new JSONArray(tweetsArr);
                 ArrayList<String> times = new ArrayList<>();
+                ArrayList<String> imgLinks = new ArrayList<>();
                 ArrayList<String> tweets = new ArrayList<>();
 
                 for(int i = 0; i < tweetsJArr.length(); i++){
@@ -116,7 +117,7 @@ public class FeedActivity extends ActionBarActivity {
                 int i = tweetsJArr.length();
                 i--;
                 while(i != -1){
-                    tweetler.add(new TweetDatas(username, tweets.get(i), times.get(i)));
+                    tweetler.add(new TweetDatas(username, tweets.get(i), imgLinks.get(i), times.get(i).toString()));
                     i--;
                 }
                 return tumIcerik;
