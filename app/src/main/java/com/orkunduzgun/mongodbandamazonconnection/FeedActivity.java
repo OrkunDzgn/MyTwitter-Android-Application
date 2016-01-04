@@ -69,8 +69,8 @@ public class FeedActivity extends ActionBarActivity {
         int secilen = item.getItemId();
 
         if(secilen == R.id.newtweet){
-            //Intent i = new Intent(FeedActivity.this, CheckinActivity.class);
-            //startActivity(i);
+            Intent i = new Intent(FeedActivity.this, NewTweet.class);
+            startActivity(i);
         }else if(secilen == R.id.profile){
             Intent i = new Intent(FeedActivity.this, ProfileActivity.class);
             startActivity(i);
