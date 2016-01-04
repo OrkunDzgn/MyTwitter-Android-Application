@@ -1,6 +1,5 @@
 package com.orkunduzgun.mongodbandamazonconnection;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -10,7 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +29,10 @@ public class ProfileActivity extends ActionBarActivity {
 
     String username = "";
     ImageView iv;
+    TextView usernameText;
+    TextView descriptionText;
+    TextView dateJoinedText;
+
     final List<TweetDatas> tweetler =new ArrayList<TweetDatas>();
     ListView listemiz;
     CustomAdapter adapter;
@@ -43,8 +48,12 @@ public class ProfileActivity extends ActionBarActivity {
         username = setting.getString("username", null); //username'i sharedden aldık
 
 
-        iv = (ImageView) findViewById(R.id.imageView);
+        iv = (ImageView) findViewById(R.id.imageViewProf);
+        usernameText = (TextView) findViewById(R.id.usernameText);
+        descriptionText = (TextView) findViewById(R.id.descriptionText);
+        dateJoinedText = (TextView) findViewById(R.id.dateJoinedText);
 
+        new GetUser().execute(username);
         new GetTweets().execute(username);
 
         listemiz = (ListView) findViewById(R.id.listView2);
@@ -138,6 +147,71 @@ public class ProfileActivity extends ActionBarActivity {
         protected void onPostExecute(String tumIcerik) {
             listemiz.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+            super.onPostExecute(tumIcerik);
+        }
+    }
+
+
+    public class GetUser extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... myStr) {
+            String userShared = myStr[0];
+
+            String packet = "{\"Function\" : \"GetUser\"," +
+                    "\"UserCreds\" : {\"username\":\"\",\"password\": \"\"}," +
+                    "\"User\" : {\"_id\" : null, \"username\":\"" + userShared + "\",\"description\": null, \"profilePicture\" : null}," +
+                    "\"Tweets\" : null," +
+                    "\"Error\" : null," +
+                    "\"Following\" : null," +
+                    "\"Followers\" : null," +
+                    "\"Tweet\" : {\"username\" : \"\"}}";
+            byte[] bayt = packet.getBytes();
+            try {
+                URL adres = new URL("http://52.34.254.140/api/Packet/");
+                Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
+                HttpURLConnection baglanti = (HttpURLConnection) adres.openConnection();
+                YardimciMetodlar.httpPost(baglanti, bayt);
+                String tumIcerik = YardimciMetodlar.responseTumString(baglanti);
+
+
+
+                return tumIcerik;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String tumIcerik) {
+
+            JSONObject nesneTum = null;
+            String userName = "";
+            String userDesc = "";
+            String userDateJoined = "";
+            String userProfilePicture = "";
+
+            try {
+                nesneTum = new JSONObject(tumIcerik);
+                JSONObject userObj = nesneTum.getJSONObject("User");
+                userName = userObj.getString("username");
+                userDesc = userObj.getString("description");
+                userDateJoined = userObj.getString("dateJoined");
+                userProfilePicture = userObj.getString("profilePicture");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            usernameText.setText(userName);
+            descriptionText.setText(userDesc);
+            dateJoinedText.setText(userDateJoined);
+            Picasso.with(ProfileActivity.this).load(userProfilePicture).into(iv);
+
             super.onPostExecute(tumIcerik);
         }
     }

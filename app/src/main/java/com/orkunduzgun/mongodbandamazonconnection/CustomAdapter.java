@@ -49,7 +49,7 @@ public class CustomAdapter extends BaseAdapter {
         satirView = mInflater.inflate(R.layout.tweets_layout, null);
         TextView nameText = (TextView) satirView.findViewById(R.id.username);
         TextView tweetText = (TextView) satirView.findViewById(R.id.tweet);
-        ImageView img = (ImageView) satirView.findViewById(R.id.imageView);
+        ImageView img = (ImageView) satirView.findViewById(R.id.imageViewProf);
         TextView timeText = (TextView) satirView.findViewById(R.id.time);
 
 
