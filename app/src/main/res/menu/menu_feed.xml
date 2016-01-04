@@ -4,16 +4,16 @@
 
     <item android:id="@+id/search"
         android:title="Search"
-        android:icon="@drawable/ic_search_white_18dp"
+        android:icon="@drawable/ic_search_white_24dp"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/checkin"
-        android:title="Check-in"
+    <item android:id="@+id/newtweet"
+        android:title="New Tweet"
         app:showAsAction="always"
-        android:icon="@drawable/ic_place_white_18dp"/>
+        android:icon="@drawable/ic_mode_edit_white_24dp"/>
 
     <item android:id="@+id/profile"
         android:title="My Profile"
         app:showAsAction="always"
-        android:icon="@drawable/ic_account_circle_white_18dp"/>
+        android:icon="@drawable/ic_account_circle_white_24dp"/>
 </menu>

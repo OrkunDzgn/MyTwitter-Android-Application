@@ -68,7 +68,7 @@ public class FeedActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int secilen = item.getItemId();
 
-        if(secilen == R.id.checkin){
+        if(secilen == R.id.newtweet){
             //Intent i = new Intent(FeedActivity.this, CheckinActivity.class);
             //startActivity(i);
         }else if(secilen == R.id.profile){

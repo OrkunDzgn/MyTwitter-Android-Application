@@ -211,7 +211,6 @@ public class ProfileActivity extends ActionBarActivity {
             descriptionText.setText(userDesc);
             dateJoinedText.setText(userDateJoined);
             Picasso.with(ProfileActivity.this).load(userProfilePicture).into(iv);
-
             super.onPostExecute(tumIcerik);
         }
     }
