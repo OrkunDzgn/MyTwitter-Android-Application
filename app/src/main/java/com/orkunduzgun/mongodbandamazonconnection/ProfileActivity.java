@@ -42,11 +42,10 @@ public class ProfileActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        setTitle("Profile isim gelecek");
-
         SharedPreferences setting = getSharedPreferences("loginSuccess", MODE_PRIVATE);
         username = setting.getString("username", null); //username'i sharedden aldık
 
+        setTitle(username + "'s Profile");
 
         iv = (ImageView) findViewById(R.id.imageViewProf);
         usernameText = (TextView) findViewById(R.id.usernameText);
