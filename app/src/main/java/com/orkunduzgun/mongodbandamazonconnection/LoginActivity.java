@@ -42,6 +42,7 @@ public class LoginActivity extends ActionBarActivity {
         username = setting.getString("username", null); //token'ı sharedden aldık
         if(username != null){
             Intent i2 = new Intent(LoginActivity.this, FeedActivity.class);
+            finish(); //Kill this activity to not to let user go back again
             startActivity(i2);
         }
 
@@ -192,6 +193,7 @@ public class LoginActivity extends ActionBarActivity {
 
 
                 Intent intent = new Intent(LoginActivity.this, FeedActivity.class);
+                finish();
                 startActivity(intent);
             }
             super.onPostExecute(tumIcerik);

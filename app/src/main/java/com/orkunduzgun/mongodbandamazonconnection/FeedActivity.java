@@ -1,6 +1,7 @@
 package com.orkunduzgun.mongodbandamazonconnection;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
@@ -77,6 +78,17 @@ public class FeedActivity extends ActionBarActivity {
         }else if(secilen == R.id.search){
             //Intent i = new Intent(FeedActivity.this, SearchActivity.class);
             //startActivity(i);
+        }
+        if (secilen == R.id.action_logout) {
+            //Delete username from shared prefs
+            SharedPreferences setting = getSharedPreferences("loginSuccess", MODE_PRIVATE);
+            SharedPreferences.Editor mPrefsEditor = setting.edit();
+            mPrefsEditor.putString("logout", "");
+            mPrefsEditor.commit();
+
+            Intent i = new Intent(FeedActivity.this, LoginActivity.class);
+            finish();
+            startActivity(i);
         }
 
 

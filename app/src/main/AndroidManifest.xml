@@ -35,15 +35,18 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
             android:parentActivityName=".FeedActivity" >
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.orkunduzgun.mongodbandamazonconnection.FeedActivity" />
         </activity>
         <activity
             android:name=".NewTweet"
-            android:label="@string/title_activity_new_tweet" >
+            android:label="@string/title_activity_new_tweet"
+            android:windowSoftInputMode="stateVisible">
+            android:parentActivityName=".FeedActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.orkunduzgun.mongodbandamazonconnection.FeedActivity" />
         </activity>
     </application>
 

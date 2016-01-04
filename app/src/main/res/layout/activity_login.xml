@@ -43,7 +43,7 @@
         android:layout_alignEnd="@+id/passText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#fd5c63"
+        android:background="#26A69A"
         android:textColor="#FFFFFF" />
 
     <TextView
