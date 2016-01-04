@@ -83,7 +83,7 @@ public class FeedActivity extends ActionBarActivity {
             //Delete username from shared prefs
             SharedPreferences setting = getSharedPreferences("loginSuccess", MODE_PRIVATE);
             SharedPreferences.Editor mPrefsEditor = setting.edit();
-            mPrefsEditor.putString("logout", "");
+            mPrefsEditor.putString("username", null);
             mPrefsEditor.commit();
 
             Intent i = new Intent(FeedActivity.this, LoginActivity.class);
