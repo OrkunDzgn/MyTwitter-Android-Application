@@ -1,6 +1,9 @@
 package com.orkunduzgun.mongodbandamazonconnection;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,8 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class EditProfileActivity extends ActionBarActivity {
@@ -51,8 +63,7 @@ public class EditProfileActivity extends ActionBarActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Save changes and go back to profile class
-                //finish();
+                new Update().execute();
             }
         });
     }
@@ -79,5 +90,56 @@ public class EditProfileActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    
+    public class Update extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... myStr) {
+
+            String packet = "{\"Function\" : \"UpdateUser\"," +
+                    "\"UserCreds\" : {\"username\": null, \"password\": null}," +
+                    "\"User\" : {\"username\" : \"" + username + "\", \"description\" : \"" + descText.getText().toString() + "\", \"profilePicture\" : \"" + picText.getText().toString() + "\"}," +
+                    "\"Tweets\" : null," +
+                    "\"Error\" : null," +
+                    "\"Following\" : null," +
+                    "\"Followers\" : null," +
+                    "\"Tweet\" : null}";
+            byte[] bayt = packet.getBytes();
+            try {
+                URL adres = new URL("http://52.34.254.140/api/Packet/");
+                Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
+                HttpURLConnection baglanti = (HttpURLConnection) adres.openConnection();
+                YardimciMetodlar.httpPost(baglanti, bayt);
+                String tumIcerik = YardimciMetodlar.responseTumString(baglanti);
+
+                JSONObject nesne = new JSONObject(tumIcerik);
+                JSONObject userObj = nesne.getJSONObject("Error");
+                boolean error = userObj.getBoolean("error");
+
+                if(!error){
+                    return true;
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean ok) {
+            if(ok){
+                Toast.makeText(EditProfileActivity.this, "Profile updated.", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(EditProfileActivity.this, ProfileActivity.class);
+                startActivityForResult(i, 1);
+            }
+            else {
+                Toast.makeText(EditProfileActivity.this, "Problem has occured.", Toast.LENGTH_SHORT).show();
+            }
+            super.onPostExecute(ok);
+        }
+    }
 }
