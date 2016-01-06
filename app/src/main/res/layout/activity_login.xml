@@ -16,7 +16,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Username" />
+        android:hint="Username"
+        android:backgroundTint="#456789" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -30,7 +31,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:backgroundTint="#456789" />
 
     <Button
         android:layout_width="wrap_content"
@@ -43,7 +45,7 @@
         android:layout_alignEnd="@+id/passText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#26A69A"
+        android:background="#E76619"
         android:textColor="#FFFFFF" />
 
     <TextView

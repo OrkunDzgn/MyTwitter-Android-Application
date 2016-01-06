@@ -1,5 +1,6 @@
 package com.orkunduzgun.mongodbandamazonconnection;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -7,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +30,11 @@ import java.util.List;
 
 public class ProfileActivity extends ActionBarActivity {
 
+    String userNameDB = "";
+    String userDescDB = "";
+    String userDateJoinedDB = "";
+    String userProfilePictureDB = "";
+
     String username = "";
     ImageView iv;
     TextView usernameText;
@@ -46,6 +54,19 @@ public class ProfileActivity extends ActionBarActivity {
         username = setting.getString("username", null); //username'i sharedden aldık
 
         setTitle(username + "'s Profile");
+
+        Button editProfileButton = (Button) findViewById(R.id.editProfile);
+
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                i.putExtra("username", userNameDB);
+                i.putExtra("profilePicture", userProfilePictureDB);
+                i.putExtra("description", userDescDB);
+                startActivity(i);
+            }
+        });
 
         iv = (ImageView) findViewById(R.id.imageViewProf);
         usernameText = (TextView) findViewById(R.id.usernameText);
@@ -191,25 +212,21 @@ public class ProfileActivity extends ActionBarActivity {
         protected void onPostExecute(String tumIcerik) {
 
             JSONObject nesneTum = null;
-            String userName = "";
-            String userDesc = "";
-            String userDateJoined = "";
-            String userProfilePicture = "";
 
             try {
                 nesneTum = new JSONObject(tumIcerik);
                 JSONObject userObj = nesneTum.getJSONObject("User");
-                userName = userObj.getString("username");
-                userDesc = userObj.getString("description");
-                userDateJoined = userObj.getString("dateJoined");
-                userProfilePicture = userObj.getString("profilePicture");
+                userNameDB = userObj.getString("username");
+                userDescDB = userObj.getString("description");
+                userDateJoinedDB = userObj.getString("dateJoined");
+                userProfilePictureDB = userObj.getString("profilePicture");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            usernameText.setText(userName);
-            descriptionText.setText(userDesc);
-            dateJoinedText.setText(userDateJoined);
-            Picasso.with(ProfileActivity.this).load(userProfilePicture).into(iv);
+            usernameText.setText(userNameDB);
+            descriptionText.setText(userDescDB);
+            dateJoinedText.setText(userDateJoinedDB);
+            Picasso.with(ProfileActivity.this).load(userProfilePictureDB).into(iv);
             super.onPostExecute(tumIcerik);
         }
     }

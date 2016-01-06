@@ -17,13 +17,10 @@
         android:layout_height="wrap_content"
         android:text="description"
         android:id="@+id/descriptionText"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/usernameText"
-        android:layout_toRightOf="@+id/imageViewProf"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_alignRight="@+id/listView2"
-        android:layout_alignEnd="@+id/listView2" />
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/dateJoinedText"
+        android:layout_alignLeft="@+id/dateJoinedText"
+        android:layout_alignStart="@+id/dateJoinedText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,17 +29,20 @@
         android:text="username"
         android:id="@+id/usernameText"
         android:layout_alignTop="@+id/imageViewProf"
-        android:layout_alignLeft="@+id/descriptionText"
-        android:layout_alignStart="@+id/descriptionText" />
+        android:layout_toRightOf="@+id/imageViewProf"
+        android:layout_toEndOf="@+id/imageViewProf"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="dateJoined"
         android:id="@+id/dateJoinedText"
-        android:layout_alignTop="@+id/usernameText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/usernameText"
+        android:layout_alignLeft="@+id/usernameText"
+        android:layout_alignStart="@+id/usernameText"
+        android:layout_marginTop="9dp" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -51,4 +51,14 @@
         android:layout_below="@+id/imageViewProf"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:id="@+id/editProfile"
+        android:layout_alignTop="@+id/usernameText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
