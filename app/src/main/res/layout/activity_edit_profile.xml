@@ -11,8 +11,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Picture"
-        android:id="@+id/textViewPic"
+        android:text="Description"
+        android:id="@+id/textViewDesc"
         android:layout_below="@+id/usernameText"
         android:layout_alignLeft="@+id/usernameText"
         android:layout_alignStart="@+id/usernameText" />
@@ -21,17 +21,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/picEdit"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/textViewPicture"
+        android:layout_alignLeft="@+id/textViewPicture"
+        android:layout_alignStart="@+id/textViewPicture"
         android:layout_alignRight="@+id/descEdit"
         android:layout_alignEnd="@+id/descEdit" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
-        android:id="@+id/textView2"
+        android:text="Picture"
+        android:id="@+id/textViewPicture"
         android:layout_below="@+id/descEdit"
         android:layout_alignLeft="@+id/descEdit"
         android:layout_alignStart="@+id/descEdit" />
@@ -40,25 +40,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/descEdit"
-        android:layout_below="@+id/textViewPic"
-        android:layout_alignLeft="@+id/textViewPic"
-        android:layout_alignStart="@+id/textViewPic"
+        android:layout_below="@+id/textViewDesc"
+        android:layout_alignLeft="@+id/textViewDesc"
+        android:layout_alignStart="@+id/textViewDesc"
         android:layout_alignRight="@+id/usernameText"
         android:layout_alignEnd="@+id/usernameText" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Changes"
-        android:id="@+id/saveChangesButton"
-        android:background="#E76619"
-        android:textColor="#FFFFFF"
-        android:layout_below="@+id/picEdit"
-        android:layout_marginTop="36dp"
-        android:layout_alignLeft="@+id/picEdit"
-        android:layout_alignStart="@+id/picEdit"
-        android:layout_alignRight="@+id/picEdit"
-        android:layout_alignEnd="@+id/picEdit" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -92,4 +78,5 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp" />
+
 </RelativeLayout>

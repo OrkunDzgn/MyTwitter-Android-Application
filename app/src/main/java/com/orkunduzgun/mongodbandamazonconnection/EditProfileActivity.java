@@ -51,7 +51,6 @@ public class EditProfileActivity extends ActionBarActivity {
         usernameText = (EditText) findViewById(R.id.usernameText);
         picText = (EditText) findViewById(R.id.picEdit);
         descText = (EditText) findViewById(R.id.descEdit);
-        save = (Button) findViewById(R.id.saveChangesButton);
 
         usernameText.setText(username, TextView.BufferType.EDITABLE);
         picText.setText(pictureDB, TextView.BufferType.EDITABLE);
@@ -59,13 +58,6 @@ public class EditProfileActivity extends ActionBarActivity {
         Picasso.with(EditProfileActivity.this).load(pictureDB).fit().centerCrop().into(iv);
 
         usernameText.setEnabled(false);
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new Update().execute();
-            }
-        });
     }
 
     @Override
@@ -80,13 +72,11 @@ public class EditProfileActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int secilen = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (secilen == R.id.save) {
+            new Update().execute();
         }
-
         return super.onOptionsItemSelected(item);
     }
 

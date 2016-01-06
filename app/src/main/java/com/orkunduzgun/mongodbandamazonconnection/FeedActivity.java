@@ -90,8 +90,6 @@ public class FeedActivity extends ActionBarActivity {
             finish();
             startActivity(i);
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 

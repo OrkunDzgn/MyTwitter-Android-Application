@@ -165,8 +165,10 @@ public class ProfileActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(String tumIcerik) {
-            listemiz.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+            if(listemiz != null) {
+                listemiz.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
             super.onPostExecute(tumIcerik);
         }
     }
@@ -227,6 +229,7 @@ public class ProfileActivity extends ActionBarActivity {
             descriptionText.setText(userDescDB);
             dateJoinedText.setText(userDateJoinedDB);
             Picasso.with(ProfileActivity.this).load(userProfilePictureDB).into(iv);
+
             super.onPostExecute(tumIcerik);
         }
     }
